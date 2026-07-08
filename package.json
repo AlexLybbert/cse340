@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "start": "node server.js"
+    "start": "node --use-system-ca --env-file=.env server.js"
   },
   "keywords": [],
   "author": "",
