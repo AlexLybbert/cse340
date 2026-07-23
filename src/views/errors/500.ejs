@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+
+<main class="content error-page">
+  <p class="eyebrow">500</p>
+  <h1><%= title %></h1>
+  <p><%= error %></p>
+  <% if (NODE_ENV === 'development') { %>
+    <pre><%= stack %></pre>
+  <% } %>
+  <a class="button" href="/">Return Home</a>
+</main>
+
+<%- include('../partials/footer') %>
