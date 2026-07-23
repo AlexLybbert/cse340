@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+
+<main class="content">
+  <p class="breadcrumb"><a href="/organizations">Organizations</a> / <%= organization.name %></p>
+  <h1><%= organization.name %></h1>
+  <p><%= organization.description %></p>
+  <p><strong>Contact:</strong> <a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></p>
+
+  <section>
+    <h2>Service Projects</h2>
+    <% if (projects.length === 0) { %>
+      <p>No service projects are listed for this organization yet.</p>
+    <% } else { %>
+      <ul class="project-list">
+        <% projects.forEach(project => { %>
+          <li>
+            <time datetime="<%= project.date.toISOString ? project.date.toISOString().slice(0, 10) : project.date %>">
+              <%= new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+            </time>
+            <a href="/project/<%= project.project_id %>"><%= project.title %></a>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

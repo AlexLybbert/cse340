@@ -1,12 +1,15 @@
 <%- include('partials/header') %>
 
-<main>
+<main class="content">
+  <section class="intro">
+    <p class="eyebrow">CSE 340 Week 03</p>
     <h1><%= title %></h1>
-
-    <h2>Welcome to the CSE 340 Service Network!</h2>
-    <p>Our mission is to promote service across the world by connecting volunteers with service opportunities in their community.</p>
-
-    <img class="main-logo" src="images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
+    <p>Find partner organizations, upcoming service projects, and category tags for local volunteer opportunities.</p>
+    <div class="actions">
+      <a class="button" href="/projects">View Upcoming Projects</a>
+      <a class="button secondary" href="/organizations">View Organizations</a>
+    </div>
+  </section>
 </main>
 
 <%- include('partials/footer') %>

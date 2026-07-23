@@ -1,17 +1,21 @@
 <%- include('partials/header') %>
 
-<main>
-    <h1><%= title %></h1>
+<main class="content">
+  <h1><%= title %></h1>
 
-    <p>Here are a few of our partner organizations:</p>
-    <ul>
-        <% organizations.forEach(org => { %>
-            <li>
-                <img src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo">
-                <strong><%= org.name %></strong>: <%= org.contact_email %>
-            </li>
-        <% }) %>
+  <% if (organizations.length === 0) { %>
+    <p>No partner organizations are available yet.</p>
+  <% } else { %>
+    <ul class="card-list">
+      <% organizations.forEach(organization => { %>
+        <li class="card">
+          <h2><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a></h2>
+          <p><%= organization.description %></p>
+          <p><a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></p>
+        </li>
+      <% }); %>
     </ul>
+  <% } %>
 </main>
 
 <%- include('partials/footer') %>

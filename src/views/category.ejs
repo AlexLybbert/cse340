@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<main class="content">
+  <p class="breadcrumb"><a href="/categories">Categories</a> / <%= category.name %></p>
+  <h1><%= category.name %></h1>
+
+  <section>
+    <h2>Service Projects</h2>
+    <% if (projects.length === 0) { %>
+      <p>No service projects are assigned to this category yet.</p>
+    <% } else { %>
+      <ul class="project-list">
+        <% projects.forEach(project => { %>
+          <li>
+            <time datetime="<%= project.date.toISOString ? project.date.toISOString().slice(0, 10) : project.date %>">
+              <%= new Date(project.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+            </time>
+            <a href="/project/<%= project.project_id %>"><%= project.title %></a>
+            <span>with <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></span>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
