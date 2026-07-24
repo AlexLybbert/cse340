@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+
+<main class="content">
+  <p class="breadcrumb"><a href="/projects">Projects</a> / <a href="/project/<%= project.project_id %>"><%= project.title %></a> / Edit</p>
+  <h1>Edit Service Project</h1>
+
+  <form class="project-form" action="/edit-project/<%= project.project_id %>" method="post">
+    <label>
+      <span>Title</span>
+      <input type="text" name="title" value="<%= project.title %>" required>
+    </label>
+
+    <label>
+      <span>Description</span>
+      <textarea name="description" rows="6" required><%= project.description %></textarea>
+    </label>
+
+    <label>
+      <span>Date</span>
+      <input
+        type="date"
+        name="date"
+        value="<%= project.date.toISOString ? project.date.toISOString().slice(0, 10) : new Date(project.date).toISOString().slice(0, 10) %>"
+        required
+      >
+    </label>
+
+    <label>
+      <span>Location</span>
+      <input type="text" name="location" value="<%= project.location %>" required>
+    </label>
+
+    <label>
+      <span>Partner Organization</span>
+      <select name="organizationId" required>
+        <% organizations.forEach(organization => { %>
+          <option
+            value="<%= organization.organization_id %>"
+            <%= Number(organization.organization_id) === Number(project.organization_id) ? 'selected' : '' %>
+          >
+            <%= organization.name %>
+          </option>
+        <% }); %>
+      </select>
+    </label>
+
+    <div class="actions">
+      <button class="button" type="submit">Save Changes</button>
+      <a class="button secondary" href="/project/<%= project.project_id %>">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>
