@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<main class="content">
+  <p class="breadcrumb"><a href="/categories">Categories</a> / <a href="/category/<%= category.category_id %>"><%= category.name %></a> / Edit</p>
+  <h1>Edit Category</h1>
+
+  <% if (errors.length > 0) { %>
+    <div class="error-summary" role="alert">
+      <h2>Please correct the following:</h2>
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form class="project-form" action="/edit-category/<%= category.category_id %>" method="post">
+    <label for="name">
+      <span>Category Name</span>
+      <input type="text" id="name" name="name" value="<%= category.name || '' %>" maxlength="100" required>
+    </label>
+
+    <div class="actions">
+      <button class="button" type="submit">Update Category</button>
+      <a class="button secondary" href="/category/<%= category.category_id %>">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>

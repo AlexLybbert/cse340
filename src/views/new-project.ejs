@@ -1,8 +1,8 @@
 <%- include('partials/header') %>
 
 <main class="content">
-  <p class="breadcrumb"><a href="/projects">Projects</a> / <a href="/project/<%= project.project_id %>"><%= project.title %></a> / Edit</p>
-  <h1>Edit Service Project</h1>
+  <p class="breadcrumb"><a href="/projects">Projects</a> / New</p>
+  <h1><%= title %></h1>
 
   <% if (errors.length > 0) { %>
     <div class="error-summary" role="alert">
@@ -15,11 +15,9 @@
     </div>
   <% } %>
 
-  <% const projectDate = project.date ? (project.date.toISOString ? project.date.toISOString().slice(0, 10) : String(project.date).slice(0, 10)) : ''; %>
-
-  <form class="project-form" action="/edit-project/<%= project.project_id %>" method="post">
+  <form class="project-form" action="/new-project" method="post">
     <label for="title">
-      <span>Title</span>
+      <span>Project Title</span>
       <input type="text" id="title" name="title" value="<%= project.title || '' %>" maxlength="200" required>
     </label>
 
@@ -28,23 +26,24 @@
       <textarea id="description" name="description" rows="6" maxlength="1000" required><%= project.description || '' %></textarea>
     </label>
 
-    <label for="date">
-      <span>Date</span>
-      <input type="date" id="date" name="date" value="<%= projectDate %>" required>
-    </label>
-
     <label for="location">
       <span>Location</span>
       <input type="text" id="location" name="location" value="<%= project.location || '' %>" maxlength="200" required>
     </label>
 
+    <label for="date">
+      <span>Date</span>
+      <input type="date" id="date" name="date" value="<%= project.date || '' %>" required>
+    </label>
+
     <label for="organizationId">
       <span>Partner Organization</span>
       <select id="organizationId" name="organizationId" required>
+        <option value="">Select an organization</option>
         <% organizations.forEach(organization => { %>
           <option
             value="<%= organization.organization_id %>"
-            <%= Number(organization.organization_id) === Number(project.organization_id) ? 'selected' : '' %>
+            <%= Number(organization.organization_id) === Number(project.organizationId || project.organization_id) ? 'selected' : '' %>
           >
             <%= organization.name %>
           </option>
@@ -53,8 +52,8 @@
     </label>
 
     <div class="actions">
-      <button class="button" type="submit">Save Changes</button>
-      <a class="button secondary" href="/project/<%= project.project_id %>">Cancel</a>
+      <button class="button" type="submit">Create Project</button>
+      <a class="button secondary" href="/projects">Cancel</a>
     </div>
   </form>
 </main>

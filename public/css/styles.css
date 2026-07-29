@@ -241,6 +241,24 @@ time {
   resize: vertical;
 }
 
+.error-summary {
+  max-width: 720px;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #fff4ed;
+  border: 1px solid #d26b46;
+  border-radius: 8px;
+}
+
+.error-summary h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.error-summary ul {
+  margin-bottom: 0;
+}
+
 dt {
   color: var(--muted);
   font-weight: 700;

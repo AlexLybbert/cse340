@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<main class="content">
+  <p class="breadcrumb"><a href="/organizations">Organizations</a> / New</p>
+  <h1><%= title %></h1>
+
+  <% if (errors.length > 0) { %>
+    <div class="error-summary" role="alert">
+      <h2>Please correct the following:</h2>
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form class="project-form" action="/new-organization" method="post">
+    <label for="name">
+      <span>Organization Name</span>
+      <input type="text" id="name" name="name" value="<%= organization.name || '' %>" maxlength="150" required>
+    </label>
+
+    <label for="description">
+      <span>Description</span>
+      <textarea id="description" name="description" rows="6" maxlength="500" required><%= organization.description || '' %></textarea>
+    </label>
+
+    <label for="contactEmail">
+      <span>Contact Email</span>
+      <input type="email" id="contactEmail" name="contactEmail" value="<%= organization.contactEmail || organization.contact_email || '' %>" maxlength="255" required>
+    </label>
+
+    <div class="actions">
+      <button class="button" type="submit">Create Organization</button>
+      <a class="button secondary" href="/organizations">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>

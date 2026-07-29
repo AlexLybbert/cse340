@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+
+<main class="content">
+  <p class="breadcrumb"><a href="/organizations">Organizations</a> / <a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a> / Edit</p>
+  <h1>Edit Organization</h1>
+
+  <% if (errors.length > 0) { %>
+    <div class="error-summary" role="alert">
+      <h2>Please correct the following:</h2>
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form class="project-form" action="/edit-organization/<%= organization.organization_id %>" method="post">
+    <label for="name">
+      <span>Organization Name</span>
+      <input type="text" id="name" name="name" value="<%= organization.name || '' %>" maxlength="150" required>
+    </label>
+
+    <label for="description">
+      <span>Description</span>
+      <textarea id="description" name="description" rows="6" maxlength="500" required><%= organization.description || '' %></textarea>
+    </label>
+
+    <label for="contactEmail">
+      <span>Contact Email</span>
+      <input type="email" id="contactEmail" name="contactEmail" value="<%= organization.contact_email || '' %>" maxlength="255" required>
+    </label>
+
+    <label for="logoFilename">
+      <span>Logo Filename</span>
+      <input type="text" id="logoFilename" name="logoFilename" value="<%= organization.logo_filename || '' %>" maxlength="255" required>
+    </label>
+
+    <div class="actions">
+      <button class="button" type="submit">Update Organization</button>
+      <a class="button secondary" href="/organization/<%= organization.organization_id %>">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>

@@ -3,6 +3,7 @@
 <main class="content">
   <p class="breadcrumb"><a href="/organizations">Organizations</a> / <%= organization.name %></p>
   <h1><%= organization.name %></h1>
+  <p><a class="button" href="/edit-organization/<%= organization.organization_id %>">Edit Organization</a></p>
   <p><%= organization.description %></p>
   <p><strong>Contact:</strong> <a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></p>
 

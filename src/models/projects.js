@@ -49,6 +49,27 @@ const getUpcomingProjects = async (numberOfProjects) => {
   return result.rows;
 };
 
+const createProject = async ({ organizationId, title, description, location, date }) => {
+  const query = `
+    INSERT INTO project (organization_id, title, description, location, date)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING project_id;
+  `;
+  const result = await db.query(query, [
+    organizationId,
+    title,
+    description,
+    location,
+    date
+  ]);
+
+  if (result.rows.length === 0) {
+    throw new Error('Service project could not be created.');
+  }
+
+  return result.rows[0].project_id;
+};
+
 const getProjectDetails = async (projectId) => {
   const query = `
     SELECT
@@ -119,6 +140,7 @@ export {
   getAllProjects,
   getProjectsByOrganizationId,
   getUpcomingProjects,
+  createProject,
   getProjectDetails,
   updateProject,
   getProjectsByCategoryId
