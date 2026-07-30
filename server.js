@@ -1,5 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
+import session from 'express-session';
+import flash from 'connect-flash';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
@@ -14,6 +16,12 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'development-session-secret',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(flash());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
@@ -25,6 +33,19 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
+  res.locals.user = null;
+  res.locals.isLoggedIn = false;
+  if (req.session && req.session.user) {
+    res.locals.user = req.session.user;
+    res.locals.isLoggedIn = true;
+  }
+
+  res.locals.successMessages = req.flash('success');
+  res.locals.errorMessages = req.flash('error');
+  if (req.query.loggedOut === 'true') {
+    res.locals.successMessages.push('You have logged out.');
+  }
+
   res.locals.NODE_ENV = NODE_ENV;
   next();
 });

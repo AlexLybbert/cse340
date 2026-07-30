@@ -259,6 +259,29 @@ time {
   margin-bottom: 0;
 }
 
+.flash-message {
+  max-width: 1040px;
+  margin: 1rem auto 0;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+}
+
+.flash-message p {
+  margin: 0;
+}
+
+.flash-message.success {
+  background: #edf7f1;
+  border: 1px solid #4d946c;
+  color: #163f29;
+}
+
+.flash-message.error {
+  background: #fff4ed;
+  border: 1px solid #d26b46;
+  color: #5f2411;
+}
+
 dt {
   color: var(--muted);
   font-weight: 700;

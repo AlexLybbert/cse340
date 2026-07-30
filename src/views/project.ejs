@@ -3,7 +3,9 @@
 <main class="content">
   <p class="breadcrumb"><a href="/projects">Projects</a> / <%= project.title %></p>
   <h1><%= project.title %></h1>
-  <p><a class="button" href="/edit-project/<%= project.project_id %>">Edit Project</a></p>
+  <% if (user && user.role_name === 'admin') { %>
+    <p><a class="button" href="/edit-project/<%= project.project_id %>">Edit Project</a></p>
+  <% } %>
 
   <dl class="detail-list">
     <div>

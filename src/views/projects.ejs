@@ -2,7 +2,9 @@
 
 <main class="content">
   <h1><%= title %></h1>
-  <p><a class="button" href="/new-project">Add Service Project</a></p>
+  <% if (user && user.role_name === 'admin') { %>
+    <p><a class="button" href="/new-project">Add Service Project</a></p>
+  <% } %>
 
   <% if (projects.length === 0) { %>
     <p>No upcoming service projects are available right now.</p>

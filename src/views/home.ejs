@@ -8,6 +8,9 @@
     <div class="actions">
       <a class="button" href="/projects">View Upcoming Projects</a>
       <a class="button secondary" href="/organizations">View Organizations</a>
+      <% if (isLoggedIn) { %>
+        <a class="button secondary" href="/dashboard">My Dashboard</a>
+      <% } %>
     </div>
   </section>
 </main>

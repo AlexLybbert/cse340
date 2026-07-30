@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<main class="content">
+  <p class="breadcrumb"><a href="/">Home</a> / Login</p>
+  <h1><%= title %></h1>
+
+  <form class="project-form" action="/login" method="post">
+    <label for="email">
+      <span>Email</span>
+      <input type="email" id="email" name="email" value="<%= email || '' %>" maxlength="100" required>
+    </label>
+
+    <label for="password">
+      <span>Password</span>
+      <input type="password" id="password" name="password" required>
+    </label>
+
+    <div class="actions">
+      <button class="button" type="submit">Login</button>
+      <a class="button secondary" href="/register">Create Account</a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>
