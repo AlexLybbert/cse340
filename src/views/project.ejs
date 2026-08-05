@@ -7,6 +7,23 @@
     <p><a class="button" href="/edit-project/<%= project.project_id %>">Edit Project</a></p>
   <% } %>
 
+  <% if (isLoggedIn) { %>
+    <section class="volunteer-panel">
+      <h2>Volunteer</h2>
+      <% if (isVolunteering) { %>
+        <p>You are volunteering for this project.</p>
+        <form class="inline-form" action="/project/<%= project.project_id %>/volunteer/remove" method="post">
+          <button class="button secondary" type="submit">Remove Me</button>
+        </form>
+      <% } else { %>
+        <p>Sign up to help with this service project.</p>
+        <form class="inline-form" action="/project/<%= project.project_id %>/volunteer" method="post">
+          <button class="button" type="submit">Volunteer</button>
+        </form>
+      <% } %>
+    </section>
+  <% } %>
+
   <dl class="detail-list">
     <div>
       <dt>Description</dt>

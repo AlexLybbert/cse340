@@ -3,7 +3,10 @@ import {
   getUpcomingProjects,
   createProject,
   getProjectDetails,
-  updateProject
+  updateProject,
+  addVolunteerToProject,
+  removeVolunteerFromProject,
+  isUserVolunteeringForProject
 } from '../models/projects.js';
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { getAllOrganizations } from '../models/organizations.js';
@@ -48,8 +51,10 @@ const showProjectDetailsPage = async (req, res, next) => {
   }
 
   const categories = await getCategoriesByProjectId(id);
+  const userId = req.session?.user?.user_id;
+  const isVolunteering = userId ? await isUserVolunteeringForProject(userId, id) : false;
   const title = `${project.title} Details`;
-  res.render('project', { title, project, categories });
+  res.render('project', { title, project, categories, isVolunteering });
 };
 
 const showNewProjectForm = async (req, res) => {
@@ -142,6 +147,35 @@ const processEditProjectForm = async (req, res) => {
   res.redirect(`/project/${projectId}`);
 };
 
+const processVolunteerSignup = async (req, res, next) => {
+  const projectId = req.params.id;
+
+  try {
+    await addVolunteerToProject(req.session.user.user_id, projectId);
+    req.flash('success', 'You are now volunteering for this project.');
+    return res.redirect(`/project/${projectId}`);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const processVolunteerRemoval = async (req, res, next) => {
+  const projectId = req.params.id;
+
+  try {
+    await removeVolunteerFromProject(req.session.user.user_id, projectId);
+    req.flash('success', 'You have been removed from this project.');
+
+    if (req.body.returnTo === 'dashboard') {
+      return res.redirect('/dashboard');
+    }
+
+    return res.redirect(`/project/${projectId}`);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 export {
   showProjectsPage,
   showProjectDetailsPage,
@@ -149,5 +183,7 @@ export {
   processNewProjectForm,
   showEditProjectForm,
   processEditProjectForm,
+  processVolunteerSignup,
+  processVolunteerRemoval,
   projectValidation
 };

@@ -201,6 +201,25 @@ time {
   margin: 1.5rem 0;
 }
 
+.volunteer-panel {
+  max-width: 720px;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.volunteer-panel h2 {
+  margin-top: 0;
+}
+
+.inline-form {
+  display: inline-block;
+  margin-top: 0.75rem;
+}
+
 .detail-list div {
   padding: 1rem;
   background: var(--surface);

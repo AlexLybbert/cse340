@@ -1,5 +1,6 @@
 -- Rebuild the database for the CSE 340 service projects app.
 
+DROP TABLE IF EXISTS project_volunteer;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS project_category;
 DROP TABLE IF EXISTS category;
@@ -57,6 +58,16 @@ CREATE TABLE project (
 );
 
 -- ========================================
+-- Volunteer Signup Table
+-- ========================================
+CREATE TABLE project_volunteer (
+  user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+  project_id INTEGER NOT NULL REFERENCES project(project_id) ON DELETE CASCADE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (user_id, project_id)
+);
+
+-- ========================================
 -- Category Tables
 -- ========================================
 CREATE TABLE category (
@@ -72,6 +83,8 @@ CREATE TABLE project_category (
 
 CREATE INDEX idx_project_organization_id ON project(organization_id);
 CREATE INDEX idx_project_date ON project(date);
+CREATE INDEX idx_project_volunteer_user_id ON project_volunteer(user_id);
+CREATE INDEX idx_project_volunteer_project_id ON project_volunteer(project_id);
 CREATE INDEX idx_project_category_project_id ON project_category(project_id);
 CREATE INDEX idx_project_category_category_id ON project_category(category_id);
 
